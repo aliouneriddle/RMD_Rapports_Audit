@@ -1,0 +1,41 @@
+---
+knit: (function(inputFile, encoding){rmarkdown::render(inputFile,encoding=encoding,output_dir="./resultats")})
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    includes:
+      in_header: "./templates/latex/preambule.tex"
+    pandoc_args: 
+      - "--variable=geometry:top=4cm"
+      - "--variable=geometry:bottom=2cm"
+      - "--variable=geometry:left=2cm"
+      - "--variable=geometry:right=2cm"
+      - "--variable=geometry:headheight=2cm"
+      - "--variable=geometry:footskip=1cm"
+      - "--variable=geometry:marginparwidth=2cm"
+---
+
+
+
+
+
+```{r chargement_des_libraries_R, warning=FALSE,include=FALSE,results='hide', echo=TRUE}
+source('./scripts aueng/01-import_libraries.R')
+chemin_AUENG <-  "C:/Users/hp/Documents/CDS AUDIT INTERNE/PLANS D'AUDIT/Plan d'audit 2019/Prépa Audit du Risque de Contrepartie/AUENG30092019_last.xlsx"
+etat_des_engagements <- readxl::read_xlsx(chemin_AUENG, sheet=1)
+jour_reference <- as.Date(ISOdate('2019','09','30'))
+nom_entite <- "Direction des engagements"
+date_arrete <- ISOdate(2019,09,30) %>% as.Date
+source('./scripts aueng/structure_donnees/modif_classe_colonnes.R')
+source('./scripts aueng/choix_soldes_d_arrete.R')
+source('./scripts aueng/creation_classes_engagements.R')
+
+```
+
+
+\input{tex/pageDEgarde.tex}
+
+
+\newpage
+\tableofcontents
+
